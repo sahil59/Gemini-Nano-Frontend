@@ -1,42 +1,35 @@
-import { useGoogleLogin } from '@react-oauth/google';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import Home from './view/Home';
 
 const App = () => {
-    
-    const login = useGoogleLogin({
-        flow: 'auth-code',
-        onSuccess: async (tokenResponse) => {
-            console.log(tokenResponse);
-            const { code } = tokenResponse;
 
-            try {
-                const response = await fetch('http://127.0.0.1:5000/auth/callback', {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({code}),
-                });
+    const theme = useSelector(state => state.userSettingsState.theme);
 
-                if (!response.ok) {
-                    throw new Error(`Failed to login. Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log('User data:', data);
-            } catch (error) {
-                console.error('Error fetching user info:', error);
-            }
-        },
-        onError: (error) => {
-            console.error('Error during login:', error);
-        },
-        scope: 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
-    });
+    // Use useEffect to set the dark mode
+    useEffect(() => {
+        if (theme === 'dark') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+    }, [theme]);
 
     return (
-        <button onClick={login}>
-            Google Workspace Access
-        </button>
+        <div className='bg-[#eeeeee] dark:bg-[#1b1b1b] min-h-screen  duration-300 ease-in-out p-[10px] flex flex-col gap-[10px]'>
+            <Router>
+                <Header />
+                <Routes>
+                    <Route path='/' element={<Home/>} />
+                    <Route path='/about' element={<h1>About</h1>} />
+                    <Route path='*' element={<h1>Not Found</h1>} />
+                </Routes>
+                <Footer />
+            </Router>
+        </div>
     );
 }
 
