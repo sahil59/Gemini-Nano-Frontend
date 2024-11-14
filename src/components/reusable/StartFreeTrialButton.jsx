@@ -34,7 +34,7 @@ const StartFreeTrialButton = () => {
     });
 
     return (
-        <button onClick={login} className='bg-[#3367D6] dark:bg-blue-800 hover:bg-opacity-90 border border-[#3367D6] dark:border-blue-800 py-2 px-4 rounded-[5px] text-white duration-300 ease-in-out text-[0.9rem]'>
+        <button onClick={login} className='bg-[#3367D6] hover:bg-opacity-90 border border-[#3367D6] py-2 px-4 rounded-[5px] text-white duration-300 ease-in-out text-[0.9rem]'>
             Start free trial
         </button>
     )

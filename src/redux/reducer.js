@@ -37,3 +37,41 @@ export const userSettingsReducer = (state = initialUserSettingsState, action) =>
             return state
     }
 };
+
+// gemini chat toggle reducer
+import { CHAT_TOGGLE } from "./action";
+
+const initialChatToggleState = {
+    chatarea: false
+};
+
+export const chatToggleReducer = (state = initialChatToggleState, action) => {
+    switch(action.type) {
+        case CHAT_TOGGLE:
+            return {...state, chatarea: !state.chatarea}
+        default:
+            return state
+    }
+};
+
+// gemini chat reducer
+import { CHAT_REQUEST, CHAT_SUCCESS, CHAT_FAILURE } from "./action";
+
+const initialChatState = {
+    chatMessages: [],
+    loading: false,
+    error: null
+};
+
+export const chatReducer = (state = initialChatState, action) => {
+    switch(action.type) {
+        case CHAT_REQUEST:
+            return {...state, loading: true}
+        case CHAT_SUCCESS:
+            return {...state, chatMessages: action.payload}
+        case CHAT_FAILURE:
+            return {...state, loading: false, error: action.payload}
+        default:
+            return state
+    }
+};

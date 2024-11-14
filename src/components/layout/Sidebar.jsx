@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ToggleButton from "./header/ToggleButton";
 
 const Sidebar = ({ sidebar, setSidebar }) => {
 
@@ -9,7 +10,7 @@ const Sidebar = ({ sidebar, setSidebar }) => {
             link: '/'
         },
         {
-            name: 'Users',
+            name: 'Workspace',
             icon: 'view_list',
             link: '/manage-workspace'
         },
@@ -21,19 +22,31 @@ const Sidebar = ({ sidebar, setSidebar }) => {
     ];
 
     return (
-        <aside className={`fixed top-0 left-0 h-[calc(100vh-20px)] w-[calc(100vw-20px)] m-[10px] shadow-md bg-black bg-opacity-20 z-30 rounded-[10px] transform transition-transform duration-700 ${sidebar ? 'translate-x-0' : '-translate-x-[calc(100%+10px)]'}`} onClick={() => setSidebar(false)}>
-            <div className="w-64 h-full bg-white dark:bg-[#282A2C] rounded-[10px] p-4 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-                {items.map((item, index) => (
-                    <Link key={index} to={item.link} onClick={() => setSidebar(false)} className="flex items-center p-4 gap-4 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 duration-300 ease-in-out">
-                        <span className="material-symbols-outlined text-[1.2rem]">
-                            {item.icon}
-                        </span>
-                        <span>{item.name}</span>
-                    </Link>
-                ))}
+        <aside className={`fixed top-0 left-0 h-screen w-full shadow-md bg-black bg-opacity-20 z-30  transform transition-transform duration-300 ease-in-out ${sidebar ? 'translate-x-0' : '-translate-x-[calc(100%)]'}`} onClick={() => setSidebar(false)}>
+            <div className="flex flex-col w-64 h-[calc(100dvh-20px)] rounded-r-[10px] my-[10px] py-[10px] bg-white dark:bg-[#282A2C] border-r border-[#00000020] dark:border-[#ffffff08] duration-300 ease-in-out overflow-hidden" onClick={(e) => e.stopPropagation()}>
+                <div className="flex items-center justify-start">
+                    <h3 className="text-black dark:text-white duration-300 ease-in-out p-2">
+                        Workspace dashboard
+                    </h3>
+                </div>
+                <div className="overflow-y-auto">
+                    {items.map((item, index) => (
+                        <Link key={index} to={item.link} onClick={() => setSidebar(false)} className="flex items-center p-2 gap-2 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 duration-300 ease-in-out relative">
+                            <div className="absolute w-[0.1rem] h-full bg-[#3367d6] top-0 left-0"></div>
+                            <span className="material-symbols-outlined text-[1rem]">
+                                {item.icon}
+                            </span>
+                            <span className="text-[0.9rem]">{item.name}</span>
+                        </Link>
+                    ))}
+                </div>
+                <div className="xl:hidden flex">
+                    <ToggleButton />
+                </div>
             </div>
         </aside>
     );
 };
 
 export default Sidebar;
+

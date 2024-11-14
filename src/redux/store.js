@@ -17,7 +17,7 @@ const persistConfig = {
     storage,
     transform: [encryptor],
     version: 1,
-    whitelist: ['authState', 'userSettingsState']
+    whitelist: ['authState', 'userSettingsState', 'chatState']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

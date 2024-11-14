@@ -4,14 +4,22 @@ import SearchBar from "./header/SearchBar";
 import ToggleButton from "./header/ToggleButton";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { chatToggle } from "../../redux/action";
 
 const Header = () => {
 
     const [sidebar, setSidebar] = useState(false);
+    const {user} = useSelector(state => state.authState);
 
     const handleToggleSidebar = () => {
         setSidebar(!sidebar);
-        console.log("sidebar triggred");
+    }
+
+    const dispatch = useDispatch();
+
+    const handleGeminiChatareaToggle = () => {
+        dispatch(chatToggle());
     }
 
     return (
@@ -33,22 +41,32 @@ const Header = () => {
                     </div>
                 </div>
                 <div className="md:flex gap-4 hidden">
-                    <SearchBar />
-                    <ToggleButton />
+                    <div>
+                        <SearchBar />
+                    </div>
+                    <div className="xl:flex hidden">
+                        <ToggleButton />
+                    </div>
                     <div className="lg:flex hidden gap-2">
                         <button className="border border-[#bfbfbf] text-[#3367D6] dark:text-[#bfbfbf] py-2 px-4 rounded-[5px] duration-300 ease-in-out text-[0.9rem] hover:bg-[#bfbfbf20]">Help</button>
                         <StartFreeTrialButton />
                     </div>
                 </div>
-                <div className="sm:flex gap-2 hidden">
-                    <button className="border-[0.5px] border-[#bfbfbf] flex p-2 rounded-full">
+                <div className="flex gap-2">
+                    <button className="sm:flex hidden border-[0.5px] border-[#bfbfbf] p-2 rounded-full">
                         <span className="material-symbols-outlined text-[#444444] dark:text-[#bfbfbf] duration-300 ease-in-out">
                             notifications
                         </span>
                     </button>
-                    <button className="p-2 group">
+                    <button className="p-2 group"  onClick={handleGeminiChatareaToggle}>
                         <img src="/images/googleGeminiIcon.svg" alt="Google gemini icon" className="group-hover:rotate-90 duration-700 ease-in-out" />
                     </button>
+                    {
+                        user && 
+                        <button>
+                            <img src="" alt="" />
+                        </button>
+                    }
                 </div>
             </nav>
             <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
