@@ -5,6 +5,8 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Home from './view/Home';
 import GeminiChatarea from './components/gemini chat/GeminiChatarea';
+// import ProtectedRoute from './protected route/ProtectedRoute';
+import Managespace from './view/Managespace';
 
 const App = () => {
     const theme = useSelector(state => state.userSettingsState.theme);
@@ -25,6 +27,9 @@ const App = () => {
                     <Routes>
                         <Route path='/' element={<Home />} />
                         <Route path='/about' element={<h1>About</h1>} />
+                        {/* <Route element={<ProtectedRoute />} > */}
+                            <Route path='/managespace' element={<Managespace />} />
+                        {/* </Route> */}
                         <Route path='*' element={<h1>Not Found</h1>} />
                     </Routes>
                     <GeminiChatarea />

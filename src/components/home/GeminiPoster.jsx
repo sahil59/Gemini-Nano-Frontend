@@ -9,7 +9,7 @@ const GeminiPoster = () => {
                     <h3 className="text-white duration-300 ease-in-out text-[1.5rem] text-center">
                         Gemini Nano for Google Workspace
                     </h3>
-                    <p className="text-[#dddddd] duration-300 ease-in-out text-[0.9rem] text-center md:w-[60%]">
+                    <p className="text-[#dddddd] duration-300 ease-in-out text-[0.9rem] text-center lg:w-[60%] md:w-[70%]">
                         Easily explore and analyze documents, spreadsheets, emails, and more with the advanced capabilities of Gemini Nano. Streamline your workflow and gain insights efficiently across various file types.
                     </p>
                 </div>

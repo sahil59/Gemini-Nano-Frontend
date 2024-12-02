@@ -26,7 +26,7 @@ export const authReducer = (state = initialAuthState, action) => {
 import { THEME_CHANGE} from "./action";
 
 const initialUserSettingsState = {
-    theme: 'dark'
+    theme: 'light'
 };
 
 export const userSettingsReducer = (state = initialUserSettingsState, action) => {
@@ -71,6 +71,22 @@ export const chatReducer = (state = initialChatState, action) => {
             return {...state, chatMessages: action.payload}
         case CHAT_FAILURE:
             return {...state, loading: false, error: action.payload}
+        default:
+            return state
+    }
+};
+
+// file active reducer
+import { FILE_ACTIVE } from "./action";
+
+const initialFileActiveState = {
+    file: 'All'
+};
+
+export const fileActiveReducer = (state = initialFileActiveState, action) => {
+    switch(action.type) {
+        case FILE_ACTIVE:
+            return {...state, file: action.payload}
         default:
             return state
     }

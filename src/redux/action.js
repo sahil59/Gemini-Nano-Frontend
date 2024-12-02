@@ -50,3 +50,10 @@ export const chatSuccess = (chat) => {
 export const chatFailure = (error) => {
     return {type: CHAT_FAILURE, payload: error}
 }
+
+// file active actions
+export const FILE_ACTIVE = 'FILE_ACTIVE';
+
+export const fileActive = (file) => {
+    return {type: FILE_ACTIVE, payload: file}
+}

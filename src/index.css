@@ -22,3 +22,31 @@ body{
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+.event::-webkit-scrollbar {
+    height: 4px;
+    border-radius: 10px;
+}
+
+.event::-webkit-scrollbar-thumb {
+    background: #888888;
+    border-radius: 10px;
+}
+
+.event::-webkit-scrollbar-thumb:hover {
+    background: #555555;
+}
+
+.event::-webkit-scrollbar-track {
+    background: #ffffff00;
+    border-radius: 10px;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+}
