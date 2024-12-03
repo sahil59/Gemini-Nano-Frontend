@@ -32,11 +32,11 @@ const Header = () => {
                         </span>
                     </button>
                     <div className="flex items-center gap-1 sm:w-fit w-full justify-center">
-                        <Link to="/">
+                        {/* <Link to="/">
                             <img src="/images/googleLogo.svg" alt="Google logo" className="w-4" />
-                        </Link>
+                        </Link> */}
                         <Link to="/" className="text-[#666666] dark:text-[#aaaaaa] duration-300 ease-in-out">
-                            Workspace Dashboard
+                            Managespace Dashboard
                         </Link>
                     </div>
                 </div>

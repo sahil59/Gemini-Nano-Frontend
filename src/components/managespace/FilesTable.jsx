@@ -3,8 +3,13 @@ import googleDocsIcon from '../../assets/docsIcon.svg';
 import googleSheetsIcon from '../../assets/sheetsIcon.svg';
 import googleSlidesIcon from '../../assets/slidesIcon.svg';
 import pdfIcon from '../../assets/pdfIcon.svg';
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fileActionType } from "../../redux/action";
 
 const FilesTable = () => {
+
+    const dispatch = useDispatch();
 
     const filesData = [
         {
@@ -83,9 +88,11 @@ const FilesTable = () => {
                                     {openDropdown === file.id && (
                                         <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white dark:bg-[#282A2C] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none duration-300 ease-in-out" role="menu" aria-orientation="vertical" aria-labelledby={`menu-button-${file.id}`} tabIndex={-1}>
                                             <div className="py-1" role="none">
-                                                <a href="#" className="text-gray-700 dark:text-gray-100 duration-300 ease-in-out block px-4 py-2 text-sm" role="menuitem" tabIndex={-1} id={`menu-item-0-${file.id}`}>Summarize</a>
-                                                <a href="#" className="text-gray-700 dark:text-gray-100 duration-300 ease-in-out block px-4 py-2 text-sm" role="menuitem" tabIndex={-1} id={`menu-item-1-${file.id}`}>Translate</a>
-                                                <a href="#" className="text-gray-700 dark:text-gray-100 duration-300 ease-in-out block px-4 py-2 text-sm" role="menuitem" tabIndex={-1} id={`menu-item-2-${file.id}`}>Open</a>
+                                                <button className="text-gray-700 dark:text-gray-100 duration-300 ease-in-out block px-4 py-2 text-sm w-full text-left" role="menuitem" tabIndex={-1} id={`menu-item-0-${file.id}`} onClick={() => {dispatch(fileActionType('summary',file)), setOpenDropdown(null)}}>Summarize</button>
+                                                <button className="text-gray-700 dark:text-gray-100 duration-300 ease-in-out block px-4 py-2 text-sm  w-full text-left" role="menuitem" tabIndex={-1} id={`menu-item-1-${file.id}`} onClick={() => {dispatch(fileActionType('translate',file)), setOpenDropdown(null)}}>Translate (Hindi)</button>
+                                                <button className="text-gray-700 dark:text-gray-100 duration-300 ease-in-out block px-4 py-2 text-sm  w-full text-left" role="menuitem" tabIndex={-1} id={`menu-item-1-${file.id}`} onClick={() => {dispatch(fileActionType('write',file)), setOpenDropdown(null)}}>Write</button>
+                                                <button className="text-gray-700 dark:text-gray-100 duration-300 ease-in-out block px-4 py-2 text-sm  w-full text-left" role="menuitem" tabIndex={-1} id={`menu-item-1-${file.id}`} onClick={() => {dispatch(fileActionType('rewrite',file)), setOpenDropdown(null)}}>Rewrite</button>
+                                                <Link to="#" className="text-gray-700 dark:text-gray-100 duration-300 ease-in-out block px-4 py-2 text-sm" role="menuitem" tabIndex={-1} id={`menu-item-2-${file.id}`}>Open</Link>
                                             </div>
                                         </div>
                                     )}

@@ -1,6 +1,12 @@
 import { useGoogleLogin } from '@react-oauth/google';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { loginSuccess } from '../../redux/action';
 
 const StartFreeTrialButton = () => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const login = useGoogleLogin({
         flow: 'auth-code',
@@ -8,24 +14,28 @@ const StartFreeTrialButton = () => {
             console.log(tokenResponse);
             const { code } = tokenResponse;
 
-            try {
-                const response = await fetch('http://127.0.0.1:5000/auth/callback', {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ code }),
-                });
+            // try {
+            //     const response = await fetch('http://127.0.0.1:5000/auth/callback', {
+            //         method: "POST",
+            //         headers: {
+            //             "Content-Type": "application/json",
+            //         },
+            //         body: JSON.stringify({ code }),
+            //     });
 
-                if (!response.ok) {
-                    throw new Error(`Failed to login. Status: ${response.status}`);
-                }
+            //     if (!response.ok) {
+            //         throw new Error(`Failed to login. Status: ${response.status}`);
+            //     }
 
-                const data = await response.json();
-                console.log('User data:', data);
-            } catch (error) {
-                console.error('Error fetching user info:', error);
+            //     const data = await response.json();
+            //     console.log('User data:', data);
+            if(code) {
+                dispatch(loginSuccess(code));
+                navigate('/managespace');
             }
+            // } catch (error) {
+            //     console.error('Error fetching user info:', error);
+            // }
         },
         onError: (error) => {
             console.error('Error during login:', error);

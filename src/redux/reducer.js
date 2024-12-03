@@ -91,3 +91,20 @@ export const fileActiveReducer = (state = initialFileActiveState, action) => {
             return state
     }
 };
+
+// file actions reducer
+import { FILE_ACTION_TYPE } from "./action";
+
+const initialFileActionsState = {
+    fileAction: null,
+    fileData: null,
+};
+
+export const fileActionsReducer = (state = initialFileActionsState, action) => {
+    switch(action.type) {
+        case FILE_ACTION_TYPE:
+            return {...state, fileAction: action.actionType, fileData: action.fileData}
+        default:
+            return state
+    }
+};
