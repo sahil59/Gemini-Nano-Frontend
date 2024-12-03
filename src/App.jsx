@@ -1,42 +1,42 @@
-import { useGoogleLogin } from '@react-oauth/google';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import Home from './view/Home';
+import GeminiChatarea from './components/gemini chat/GeminiChatarea';
+import ProtectedRoute from './protected route/ProtectedRoute';
+import Managespace from './view/Managespace';
 
 const App = () => {
-    
-    const login = useGoogleLogin({
-        flow: 'auth-code',
-        onSuccess: async (tokenResponse) => {
-            console.log(tokenResponse);
-            const { code } = tokenResponse;
+    const theme = useSelector(state => state.userSettingsState.theme);
 
-            try {
-                const response = await fetch('http://127.0.0.1:5000/auth/callback', {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({code}),
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Failed to login. Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log('User data:', data);
-            } catch (error) {
-                console.error('Error fetching user info:', error);
-            }
-        },
-        onError: (error) => {
-            console.error('Error during login:', error);
-        },
-        scope: 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
-    });
+    useEffect(() => {
+        if (theme === 'dark') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+    }, [theme]);
 
     return (
-        <button onClick={login}>
-            Google Workspace Access
-        </button>
+        <Router>
+            <div className='bg-[#eeeeee] dark:bg-[#1b1b1b] min-h-screen duration-300 ease-in-out p-[10px] flex flex-col gap-[10px] max-w-[1600px] w-full'>
+                <Header />
+                <div className={`flex gap-[10px] transition-all duration-700 ease-in-out`}>
+                    <Routes>
+                        <Route path='/' element={<Home />} />
+                        <Route path='/about' element={<h1>About</h1>} />
+                        <Route element={<ProtectedRoute />} >
+                            <Route path='/managespace' element={<Managespace />} />
+                        </Route>
+                        <Route path='*' element={<h1>Not Found</h1>} />
+                    </Routes>
+                    <GeminiChatarea />
+                </div>
+                <Footer />
+            </div>
+        </Router>
     );
 }
 
